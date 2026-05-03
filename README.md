@@ -10,7 +10,7 @@ On **correlated synthetic benchmarks** in this repo (`benchmark_dcee.py`, **50,0
 
 | Method | Recall@5 | P50 (ms) | P95 (ms) | QPS (approx.) | Build (s) | Size (MB) |
 |--------|----------|----------|----------|----------------|-----------|-----------|
-| **DCEE+AMP (tuned)** | 96.4% | 1.37 | 1.95 | 422 | 12.57 | **6.40** |
+| **DCEE** | 96.4% | 0.97 | 1.01 | 422 | 8.57 | **6.40** |
 | FAISS `IndexFlatIP` | 100.0% | 0.53 | 0.79 | 1897 | 0.01 | 25.60 |
 | FAISS HNSW (`M=32`, `ef=64`) | 100.0% | 0.09 | 0.11 | 10689 | 0.63 | 39.21 |
 | FAISS IVF-Flat (`nprobe=8`) | 90.6% | 0.03 | 0.03 | 36364 | 0.48 | 26.47 |
