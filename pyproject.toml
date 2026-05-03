@@ -4,13 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "dcee"
-version = "1.0.1"
+version = "1.0.2"
 description = "Delta-Compressed Embedding Engine — compressed approximate similarity search for correlated embeddings"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
 authors = [{ name = "DCEE contributors" }]
-keywords = ["embeddings", "vector-search", "approximate-nearest-neighbor", "compression", "machine learning" , "vector database", "ANN", "faiss", "Artificial Intelligence" , "hugging-face"]
+keywords = ["embeddings", "RAG" ,"vector-search", "approximate-nearest-neighbor", "compression", "machine learning" , "vector database", "ANN", "faiss", "Artificial Intelligence" , "hugging-face"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
@@ -31,6 +31,11 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=7.0", "ruff>=0.1"]
 # GPU: install cupy matching your CUDA, e.g. cupy-cuda12x — not declared here (platform-specific)
+
+[project.urls]
+Homepage = "https://dcee-docs.vercel.app/"
+Documentation = "https://dcee-docs.vercel.app/"
+Repository = "https://github.com/arjun988/DCEE"
 
 [tool.hatch.build.targets.sdist]
 include = ["/dcee", "/README.md", "/LICENSE"]

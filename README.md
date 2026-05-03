@@ -38,7 +38,7 @@ pip install "dcee>=0.1.0"
 **Development** (editable install from a clone):
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/arjun988/DCEE.git
 cd DCEE
 pip install -e ".[dev]"
 ```
