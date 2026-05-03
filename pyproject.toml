@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dcee"
+version = "0.1.0"
+description = "Delta-Compressed Embedding Engine — compressed approximate similarity search for correlated embeddings"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "DCEE contributors" }]
+keywords = ["embeddings", "vector-search", "approximate-nearest-neighbor", "compression"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "numpy>=1.22",
+  "scikit-learn>=1.2",
+  "tqdm>=4.64",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "ruff>=0.1"]
+# GPU: install cupy matching your CUDA, e.g. cupy-cuda12x — not declared here (platform-specific)
+
+[tool.hatch.build.targets.sdist]
+include = ["/dcee", "/README.md", "/LICENSE"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["dcee"]
+
+[tool.pytest.ini_options]
+markers = [
+  "integration: loads optional deps / larger corpus (sentence-transformers)",
+]
+testpaths = ["tests"]

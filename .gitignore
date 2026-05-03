@@ -1,0 +1,15 @@
+Colab/
+sample_chunks.txt
+sample_corpus_50k.txt
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+best_dcee_params.json
+/tests
+test_realworld_dcee.py
+generate_sample_corpus.py
