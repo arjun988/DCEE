@@ -1,6 +1,21 @@
 # DCEE — Delta-Compressed Embedding Engine
 
-Compressed approximate similarity search for **correlated** embedding sequences (e.g. chunks from one document, adjacent logs). Uses k-means routing, delta coding inside clusters, optional **Adaptive Margin Probing (AMP)** at query time, and optional **CuPy** for GPU math (falls back to NumPy).
+## Introduction
+
+**DCEE** (Delta-Compressed Embedding Engine) targets embeddings that sit together in semantic space—**document chunks, chats, logs, or clustered corpora**—where sequential **delta coding** plus **quantization** shrinks storage versus raw float32 vectors. The pipeline **clusters** vectors (MiniBatch k-means), **orders** points inside each cluster to keep deltas small, stores **keyframes + deltas**, and at query time uses **keyframe routing** with optional **Adaptive Margin Probing (AMP)** to widen cluster search when scores are ambiguous. Math runs on **CuPy when available**, otherwise **NumPy**.
+
+On **correlated synthetic benchmarks** in this repo (`benchmark_dcee.py`, **50,000** normalized vectors, **Recall@5** vs exact inner-product neighbors), a **tuned DCEE+AMP** configuration achieved **~96% recall** with **~4× smaller** on-disk payload than storing uncompressed float32 norms (see compressed size column below). Latency and recall depend on **hardware, `n_probe`, quantization, and dataset**; treat these as **example numbers**, not guarantees for every workload.
+
+### Example benchmark snapshot (internal script, same queries for all methods)
+
+| Method | Recall@5 | P50 (ms) | P95 (ms) | QPS (approx.) | Build (s) | Size (MB) |
+|--------|----------|----------|----------|----------------|-----------|-----------|
+| **DCEE+AMP (tuned)** | 96.4% | 1.37 | 1.95 | 422 | 12.57 | **6.40** |
+| FAISS `IndexFlatIP` | 100.0% | 0.53 | 0.79 | 1897 | 0.01 | 25.60 |
+| FAISS HNSW (`M=32`, `ef=64`) | 100.0% | 0.09 | 0.11 | 10689 | 0.63 | 39.21 |
+| FAISS IVF-Flat (`nprobe=8`) | 90.6% | 0.03 | 0.03 | 36364 | 0.48 | 26.47 |
+
+**Takeaway:** DCEE trades some recall versus exact flat search for **much smaller index bytes**; graph/IVF methods can be faster but use **different memory/compute tradeoffs**. Reproduce or tune with `benchmark_dcee.py` (and `tune_dcee.py`) on your own data.
 
 ## Install
 
