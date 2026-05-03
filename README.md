@@ -4,11 +4,29 @@ Compressed approximate similarity search for **correlated** embedding sequences 
 
 ## Install
 
+From [PyPI](https://pypi.org/project/dcee/) (recommended):
+
 ```bash
-pip install .
+pip install dcee
 ```
 
-Optional GPU: install a matching [CuPy](https://docs.cupy.dev/) wheel for your CUDA version (e.g. `cupy-cuda12x`).
+Install a specific release:
+
+```bash
+pip install "dcee>=0.1.0"
+```
+
+**Dependencies** (pulled in automatically): `numpy`, `scikit-learn`, `tqdm`. Python **3.10+**.
+
+**Optional GPU acceleration:** install a [CuPy](https://docs.cupy.dev/) wheel that matches your CUDA toolkit (e.g. `cupy-cuda12x`). If CuPy is not installed, DCEE runs on **NumPy** (CPU).
+
+**Development** (editable install from a clone):
+
+```bash
+git clone <repository-url>
+cd DCEE
+pip install -e ".[dev]"
+```
 
 ## Quick start
 
