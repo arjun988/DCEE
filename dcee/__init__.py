@@ -15,7 +15,7 @@ from dcee.core import (
     save_index,
 )
 
-__version__ = "1.0.0"
+__version__ = "1.0.3"
 
 __all__ = [
     "ClusterBlockV2",

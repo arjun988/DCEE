@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "dcee"
-version = "1.0.2"
+version = "1.0.3"
 description = "Delta-Compressed Embedding Engine — compressed approximate similarity search for correlated embeddings"
 readme = "README.md"
 license = { text = "MIT" }
