@@ -17,6 +17,32 @@ On **correlated synthetic benchmarks** in this repo (`benchmark_dcee.py`, **50,0
 
 **Takeaway:** DCEE trades some recall versus exact flat search for **much smaller index bytes**; graph/IVF methods can be faster but use **different memory/compute tradeoffs**. Reproduce or tune with `benchmark_dcee.py` (and `tune_dcee.py`) on your own data.
 
+### TurboQuant-style benchmark (GloVe, DCEE run)
+
+Using `benchmark_turboquant_style_dcee.py` on GloVe (`100,000` base vectors, `1,000` queries, `Recall@10`), DCEE produced:
+
+| dim | Recall@10 (%) | build_s | query_s | QPS | bits/vec | est_MB |
+|-----|----------------|---------|---------|-----|----------|--------|
+| 50  | 91.51 | 5.3732 | 3.8229 | 261.6 | 512.0 | 6.40 |
+| 100 | 88.59 | 9.7500 | 5.2909 | 189.0 | 992.0 | 12.40 |
+| 200 | 85.33 | 23.1313 | 6.4738 | 154.5 | 1952.0 | 24.40 |
+| 300 | 84.99 | 41.1703 | 12.1304 | 82.4 | 2912.0 | 36.40 |
+
+**Notes:** `bits/vec` and `est_MB` are DCEE payload estimates from the benchmark harness (useful for relative comparisons)
+
+### Multi-hop retrieval benchmark (synthetic)
+
+Using `benchmark_multihop_retrieval_dcee.py` (chain length 2-5, beam=32, max depth=8, 200 trials), DCEE matched the exact cosine expansion oracle in this setup:
+
+| Chain length L | Exact multi-hop (%) | DCEE multi-hop (%) | Exact hops (avg) | DCEE hops (avg) |
+|----------------|----------------------|--------------------|------------------|-----------------|
+| 2 | 100.0 | 100.0 | 1.00 | 1.02 |
+| 3 | 100.0 | 100.0 | 2.00 | 2.12 |
+| 4 | 100.0 | 100.0 | 2.23 | 2.24 |
+| 5 | 100.0 | 100.0 | 2.26 | 2.32 |
+
+**Takeaway:** On this benchmark, DCEE maintains full multi-hop reachability while keeping expansion latency in the tens-of-milliseconds range per batch.
+
 ## Install
 
 From [PyPI](https://pypi.org/project/dcee/) (recommended):
